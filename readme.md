@@ -92,6 +92,12 @@ Below are screenshots of the Apistry application UI and workflow.
 > 📁 **All screenshots must be placed inside the `screenshots/` folder at the root of the repository.**  
 > You only need to replace the image files — the links below will automatically render on GitHub.
 
+### 🏠 Homepage
+Public landing page of Apistry showcasing the platform overview, key features, and navigation options for login and registration.
+
+![Homepage](screenshots/homepage.png)
+
+
 ### 🔑 Login Page
 *User login interface with email/username and password authentication.*
 
@@ -107,20 +113,22 @@ Below are screenshots of the Apistry application UI and workflow.
 
 ![Dashboard](screenshots/dashboard.png)
 
+### 🔧 API Testing
+Interactive API testing interface that allows users to create, configure, and execute HTTP requests. Supports multiple HTTP methods, headers, parameters, request body, and displays detailed responses including status codes and payload.
+
+![API Testing](screenshots/Api_testing.png)
+
+
 ### 📁 API Collections
 *Page for creating and managing API request collections.*
 
-![API Collections](screenshots/Api_testing.png)
+![API Collections](screenshots/collection.png)
 
-### 📨 API Request Builder
-*Interface for building and executing API requests (method, headers, body, response).*
+### 📞 Contact Us
+Contact page allowing users to reach out for queries, feedback, or support related to the Apistry platform.
 
-![API Request Builder](screenshots/request.png)
+![Contact Us](screenshots/contact.png)
 
-### 🧑‍💻 Workspace View
-*Workspace-based project organization and collaboration view.*
-
-![Workspace](screenshots/workspace.png)
 
 ---
 
