@@ -1,15 +1,19 @@
 spring:
   application:
     name: Apistry
-  
-  # Database Configuration
+
+  # ===============================
+  # Database Configuration (MySQL)
+  # ===============================
   datasource:
-    url: ${DB_URL}                     # Use environment variable
-    username: ${DB_USERNAME}           # Use environment variable
-    password: ${DB_PASSWORD}           # Use environment variable
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
-  
-  # JPA Configuration
+
+  # ===============================
+  # JPA / Hibernate Configuration
+  # ===============================
   jpa:
     hibernate:
       ddl-auto: update
@@ -18,14 +22,36 @@ spring:
       hibernate:
         format_sql: true
         use_sql_comments: true
-  
+
+  # ===============================
   # Security Configuration
+  # ===============================
   security:
     user:
       name: admin
       password: admin
-  
+
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            scope:
+              - email
+              - profile
+            redirect-uri: "{baseUrl}/login/oauth2/code/google"
+            client-name: Google
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+            user-name-attribute: sub
+
+  # ===============================
   # Thymeleaf Configuration
+  # ===============================
   thymeleaf:
     cache: false
     prefix: classpath:/templates/
@@ -33,13 +59,17 @@ spring:
     encoding: UTF-8
     mode: HTML
 
+# ===============================
 # Server Configuration
+# ===============================
 server:
   port: 8080
   servlet:
     context-path: /
 
+# ===============================
 # Logging Configuration
+# ===============================
 logging:
   level:
     com.capstone.apistry: DEBUG
@@ -49,33 +79,11 @@ logging:
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
 
-# Application specific properties
+# ===============================
+# Application Specific Properties
+# ===============================
 apistry:
   app:
     title: Apistry - API Testing Platform
     version: 1.0.0
     description: A powerful API testing platform built with Spring Boot
-
-# ===============================
-# Google OAuth Configuration
-# ===============================
-spring:
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: ${GOOGLE_CLIENT_ID}        # Use environment variable
-            client-secret: ${GOOGLE_CLIENT_SECRET} # Use environment variable
-            scope:
-              - email
-              - profile
-            redirect-uri: "https://apistry.onrender.com/login/oauth2/code/google"
-            client-name: Google
-        provider:
-          google:
-            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
-            token-uri: https://oauth2.googleapis.com/token
-            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
-            user-name-attribute: sub
-
