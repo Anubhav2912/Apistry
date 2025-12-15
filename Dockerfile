@@ -3,17 +3,14 @@
 # =========
 FROM maven:3-eclipse-temurin-17 AS build
 
-# Set working directory inside the container
 WORKDIR /app
 
-# Copy the Maven descriptor and download dependencies first (better caching)
+# Download dependencies first (layer caching)
 COPY pom.xml .
 RUN mvn -B dependency:go-offline
 
-# Copy the rest of the project
+# Copy the rest of the source and build
 COPY . .
-
-# Build the Spring Boot application (skip tests for faster CI build)
 RUN mvn -B clean package -DskipTests
 
 # =========
@@ -21,16 +18,15 @@ RUN mvn -B clean package -DskipTests
 # =========
 FROM eclipse-temurin:17-jdk-alpine
 
-# Set working directory for the runtime container
 WORKDIR /app
 
-# Copy the built jar from the build stage
-# IMPORTANT: replace 'apistry-0.0.1-SNAPSHOT.jar'
-# with the actual JAR file name in target/ after you build locally.
-COPY --from=build /app/target/apistry-0.0.1-SNAPSHOT.jar app.jar
+# Copy the Spring Boot fat JAR built in the first stage
+# Maven builds: target/Apistry-0.0.1-SNAPSHOT.jar (from your screenshot)
+COPY --from=build /app/target/Apistry-0.0.1-SNAPSHOT.jar app.jar
+# (If you ever change the version, you can instead use: COPY --from=build /app/target/*.jar app.jar)
 
-# Expose the default Spring Boot port
+# Render will route traffic to this port; Spring Boot default is 8080
 EXPOSE 8080
 
-# Run the application
+# Start the app
 ENTRYPOINT ["java", "-jar", "app.jar"]
