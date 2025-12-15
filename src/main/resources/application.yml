@@ -4,9 +4,9 @@ spring:
   
   # Database Configuration
   datasource:
-    url: jdbc:mysql://localhost:3306/apistry?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: root
-    password: root
+    url: ${DB_URL}                     # Use environment variable
+    username: ${DB_USERNAME}           # Use environment variable
+    password: ${DB_PASSWORD}           # Use environment variable
     driver-class-name: com.mysql.cj.jdbc.Driver
   
   # JPA Configuration
@@ -55,3 +55,26 @@ apistry:
     title: Apistry - API Testing Platform
     version: 1.0.0
     description: A powerful API testing platform built with Spring Boot
+
+# ===============================
+# Google OAuth Configuration
+# ===============================
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}        # Use environment variable
+            client-secret: ${GOOGLE_CLIENT_SECRET} # Use environment variable
+            scope:
+              - email
+              - profile
+            redirect-uri: "{baseUrl}/login/oauth2/code/google"
+            client-name: Google
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+            user-name-attribute: sub
