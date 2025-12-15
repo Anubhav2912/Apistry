@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apistry - Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <script th:src="@{/js/main.js}" defer></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-code"></i>
+                <span>Apistry</span>
+            </div>
+            <nav class="nav-menu">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="/contact" class="nav-link">Contact</a>
+                <button class="btn btn-secondary">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </button>
+                <button class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    New
+                </button>
+                <form th:action="@{/logout}" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-secondary">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                </form>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-header">
+                    <h3>Workspaces</h3>
+                    <button class="btn-icon" title="Add Workspace">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <ul class="sidebar-list" th:if="${workspaces != null and !workspaces.empty}">
+                    <li th:each="workspace : ${workspaces}">
+                        <a th:href="@{/workspace/{id}(id=${workspace.id})}" class="sidebar-item">
+                            <i class="fas fa-briefcase"></i>
+                            <span th:text="${workspace.name}">Workspace</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="sidebar-empty" th:if="${workspaces == null or workspaces.empty}">
+                    <p>No workspaces yet</p>
+                    <button class="btn btn-sm btn-primary">Create Workspace</button>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-header">
+                    <h3>Collections</h3>
+                    <button class="btn-icon" title="Add Collection">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <ul class="sidebar-list" th:if="${collections != null and !collections.empty}">
+                    <li th:each="collection : ${collections}">
+                        <a th:href="@{/collection/{id}(id=${collection.id})}" class="sidebar-item">
+                            <i class="fas fa-folder"></i>
+                            <span th:text="${collection.name}">Collection</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="sidebar-empty" th:if="${collections == null or collections.empty}">
+                    <p>No collections yet</p>
+                    <button class="btn btn-sm btn-primary">Create Collection</button>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-header">
+                    <h3>History</h3>
+                    <button class="btn-icon" title="Clear History">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <ul class="sidebar-list" th:if="${requests != null and !requests.empty}">
+                    <li th:each="request : ${requests}" th:if="${#lists.size(requests) <= 10}">
+                        <a th:href="@{/request/{id}(id=${request.id})}" class="sidebar-item">
+                            <span class="method-badge" th:text="${request.method}">GET</span>
+                            <span class="request-url" th:text="${request.url}">/api/endpoint</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="sidebar-empty" th:if="${requests == null or requests.empty}">
+                    <p>No requests yet</p>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-header">
+                    <h3>Saved</h3>
+                </div>
+                <ul class="sidebar-list" th:if="${savedRequests != null and !savedRequests.empty}">
+                    <li th:each="request : ${savedRequests}">
+                        <a th:href="@{/request/{id}(id=${request.id})}" class="sidebar-item">
+                            <span class="method-badge" th:text="${request.method}">GET</span>
+                            <span class="request-url" th:text="${request.url}">/api/endpoint</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="sidebar-empty" th:if="${savedRequests == null or savedRequests.empty}">
+                    <p>No saved requests yet</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="welcome-section">
+                <div class="welcome-content">
+                    <h1>Welcome to Apistry</h1>
+                    <p>Your powerful API testing and development tool</p>
+                    
+                    <div class="quick-actions">
+                        <a href="/request/new" class="btn btn-large btn-primary">
+                            <i class="fas fa-plus"></i>
+                            New Request
+                        </a>
+                        <a href="/collection/new" class="btn btn-large btn-secondary">
+                            <i class="fas fa-folder-plus"></i>
+                            New Collection
+                        </a>
+                        <a href="/workspace/new" class="btn btn-large btn-secondary">
+                            <i class="fas fa-briefcase"></i>
+                            New Workspace
+                        </a>
+                    </div>
+
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-rocket"></i>
+                            <h3>Fast & Responsive</h3>
+                            <p>Lightning-fast API testing with real-time responses</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-shield-alt"></i>
+                            <h3>Secure</h3>
+                            <p>Built-in security features and environment management</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-users"></i>
+                            <h3>Collaborative</h3>
+                            <p>Share collections and workspaces with your team</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-code"></i>
+                            <h3>Developer Friendly</h3>
+                            <p>Advanced features for developers and testers</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="newRequestModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>New Request</h3>
+                <button class="btn-icon modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="newRequestForm">
+                    <div class="form-group">
+                        <label for="requestMethod">Method</label>
+                        <select id="requestMethod" name="method" required>
+                            <option value="GET">GET</option>
+                            <option value="POST">POST</option>
+                            <option value="PUT">PUT</option>
+                            <option value="DELETE">DELETE</option>
+                            <option value="PATCH">PATCH</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="requestUrl">URL</label>
+                        <input type="url" id="requestUrl" name="url" placeholder="https://api.example.com/endpoint" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="requestName">Name (Optional)</label>
+                        <input type="text" id="requestName" name="name" placeholder="Request Name">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-close">Cancel</button>
+                <button class="btn btn-primary" onclick="createRequest()">Create Request</button>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html>
