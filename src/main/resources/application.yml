@@ -3,13 +3,13 @@ spring:
     name: Apistry
 
   # ===============================
-  # Database Configuration (MySQL)
+  # Database Configuration (PostgreSQL)
   # ===============================
   datasource:
     url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.postgresql.Driver
 
   # ===============================
   # JPA / Hibernate Configuration
@@ -20,8 +20,11 @@ spring:
     show-sql: true
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
         use_sql_comments: true
+        temp:
+          use_jdbc_metadata_defaults: false
 
   # ===============================
   # Security Configuration
@@ -75,9 +78,6 @@ logging:
     com.capstone.apistry: DEBUG
     org.springframework.security: DEBUG
     org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
 
 # ===============================
 # Application Specific Properties
