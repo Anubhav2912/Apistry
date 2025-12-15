@@ -100,7 +100,7 @@ Below are screenshots of the Apistry application UI and workflow.
 ### 📝 Registration Page
 *New user registration form with validation.*
 
-![Registration Page](screenshots/register.png)
+![Registration Page](screenshots/signup.png)
 
 ### 📊 Dashboard
 *Main dashboard displayed after successful login, showing user workspace overview.*
@@ -110,7 +110,7 @@ Below are screenshots of the Apistry application UI and workflow.
 ### 📁 API Collections
 *Page for creating and managing API request collections.*
 
-![API Collections](screenshots/collection.png)
+![API Collections](screenshots/Api_testing.png)
 
 ### 📨 API Request Builder
 *Interface for building and executing API requests (method, headers, body, response).*
