@@ -1,0 +1,127 @@
+graph TB
+    subgraph "Client Layer"
+        A[Web Browser]
+        B[Mobile Browser]
+    end
+    
+    subgraph "Presentation Layer"
+        C[Thymeleaf Templates]
+        D[Static Resources]
+        E[CSS/JS Files]
+    end
+    
+    subgraph "Controller Layer"
+        F[PublicController]
+        G[AuthController]
+        H[FrontendController]
+        I[ContactController]
+        J[WorkspaceController]
+        K[CollectionController]
+        L[ApiRequestController]
+        M[EnvironmentController]
+    end
+    
+    subgraph "Service Layer"
+        N[UserService]
+        O[WorkspaceService]
+        P[CollectionService]
+        Q[ApiRequestService]
+        R[EnvironmentService]
+        S[CustomUserDetailsService]
+    end
+    
+    subgraph "Data Access Layer"
+        T[UserRepository]
+        U[WorkspaceRepository]
+        V[CollectionRepository]
+        W[ApiRequestRepository]
+        X[EnvironmentRepository]
+        Y[EnvironmentVariableRepository]
+    end
+    
+    subgraph "Database Layer"
+        Z[(MySQL Database)]
+    end
+    
+    subgraph "Security Layer"
+        AA[Spring Security]
+        BB[SecurityConfig]
+        CC[BCrypt Password Encoder]
+    end
+    
+    %% Client to Presentation Layer
+    A --> C
+    A --> D
+    A --> E
+    B --> C
+    B --> D
+    B --> E
+    
+    %% Presentation to Controller Layer
+    C --> F
+    C --> G
+    C --> H
+    C --> I
+    C --> J
+    C --> K
+    C --> L
+    C --> M
+    
+    %% Controller to Service Layer
+    F --> N
+    G --> N
+    G --> S
+    H --> O
+    H --> P
+    H --> Q
+    H --> R
+    I --> N
+    J --> O
+    K --> P
+    L --> Q
+    M --> R
+    
+    %% Service to Data Access Layer
+    N --> T
+    O --> U
+    P --> V
+    Q --> W
+    R --> X
+    R --> Y
+    S --> T
+    
+    %% Data Access to Database
+    T --> Z
+    U --> Z
+    V --> Z
+    W --> Z
+    X --> Z
+    Y --> Z
+    
+    %% Security Integration
+    AA --> BB
+    BB --> CC
+    AA --> G
+    AA --> H
+    AA --> I
+    AA --> J
+    AA --> K
+    AA --> L
+    AA --> M
+    
+    %% Styling
+    classDef clientLayer fill:#e3f2fd
+    classDef presentationLayer fill:#f3e5f5
+    classDef controllerLayer fill:#e8f5e8
+    classDef serviceLayer fill:#fff3e0
+    classDef dataLayer fill:#ffebee
+    classDef databaseLayer fill:#f1f8e9
+    classDef securityLayer fill:#fce4ec
+    
+    class A,B clientLayer
+    class C,D,E presentationLayer
+    class F,G,H,I,J,K,L,M controllerLayer
+    class N,O,P,Q,R,S serviceLayer
+    class T,U,V,W,X,Y dataLayer
+    class Z databaseLayer
+    class AA,BB,CC securityLayer

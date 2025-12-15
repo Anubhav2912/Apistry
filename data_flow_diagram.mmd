@@ -1,0 +1,111 @@
+flowchart TD
+    A[User] --> B{User Action}
+    
+    B -->|Visit Homepage| C[PublicController]
+    B -->|Login/Register| D[AuthController]
+    B -->|Access Dashboard| E[FrontendController]
+    B -->|Contact Support| F[ContactController]
+    B -->|API Operations| G[API Controllers]
+    
+    %% Public Flow
+    C --> H[Return index.html]
+    H --> I[Display Homepage]
+    
+    %% Authentication Flow
+    D --> J{Action Type}
+    J -->|Login| K[Validate Credentials]
+    J -->|Register| L[Create New User]
+    
+    K --> M{Valid Credentials?}
+    M -->|No| N[Return Error]
+    M -->|Yes| O[Create Session]
+    
+    L --> P[Encrypt Password]
+    P --> Q[Save User to DB]
+    Q --> R[Redirect to Login]
+    
+    O --> S[Redirect to Dashboard]
+    N --> T[Show Error Message]
+    R --> U[Show Success Message]
+    
+    %% Dashboard Flow
+    E --> V[Load User Data]
+    V --> W[Fetch Workspaces]
+    W --> X[Fetch Collections]
+    X --> Y[Fetch Recent Requests]
+    Y --> Z[Return dashboard.html]
+    Z --> AA[Display Dashboard]
+    
+    %% Contact Flow
+    F --> BB[Load Contact Page]
+    BB --> CC[Return contact.html]
+    CC --> DD[Display Contact Form]
+    
+    %% API Operations Flow
+    G --> EE{Operation Type}
+    EE -->|Create| FF[Validate Input]
+    EE -->|Read| GG[Fetch Data]
+    EE -->|Update| HH[Validate & Update]
+    EE -->|Delete| II[Remove Data]
+    
+    FF --> JJ[Save to Database]
+    GG --> KK[Query Database]
+    HH --> LL[Update Database]
+    II --> MM[Delete from Database]
+    
+    JJ --> NN[Return Success Response]
+    KK --> OO[Return Data]
+    LL --> PP[Return Updated Data]
+    MM --> QQ[Return Success Response]
+    
+    %% Database Operations
+    JJ --> RR[(MySQL Database)]
+    KK --> RR
+    LL --> RR
+    MM --> RR
+    
+    %% Service Layer Integration
+    C --> SS[PublicService]
+    D --> TT[UserService]
+    E --> UU[WorkspaceService]
+    E --> VV[CollectionService]
+    E --> WW[ApiRequestService]
+    F --> XX[ContactService]
+    G --> UU
+    G --> VV
+    G --> WW
+    G --> YY[EnvironmentService]
+    
+    %% Repository Layer
+    TT --> ZZ[UserRepository]
+    UU --> AAA[WorkspaceRepository]
+    VV --> BBB[CollectionRepository]
+    WW --> CCC[ApiRequestRepository]
+    YY --> DDD[EnvironmentRepository]
+    YY --> EEE[EnvironmentVariableRepository]
+    
+    %% Security Integration
+    D --> FFF[Spring Security]
+    E --> FFF
+    F --> FFF
+    G --> FFF
+    
+    FFF --> GGG[CustomUserDetailsService]
+    FFF --> HHH[BCrypt Encoder]
+    
+    %% Styling
+    classDef userAction fill:#e3f2fd
+    classDef controller fill:#f3e5f5
+    classDef service fill:#e8f5e8
+    classDef repository fill:#fff3e0
+    classDef database fill:#ffebee
+    classDef security fill:#fce4ec
+    classDef response fill:#f1f8e9
+    
+    class A,B userAction
+    class C,D,E,F,G controller
+    class SS,TT,UU,VV,WW,XX,YY service
+    class ZZ,AAA,BBB,CCC,DDD,EEE repository
+    class RR database
+    class FFF,GGG,HHH security
+    class H,I,N,O,S,T,U,Z,AA,CC,DD,NN,OO,PP,QQ response
