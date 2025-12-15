@@ -70,7 +70,7 @@ spring:
             scope:
               - email
               - profile
-            redirect-uri: "{baseUrl}/login/oauth2/code/google"
+            redirect-uri: "https://apistry.onrender.com/login/oauth2/code/google"
             client-name: Google
         provider:
           google:
@@ -78,3 +78,4 @@ spring:
             token-uri: https://oauth2.googleapis.com/token
             user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
             user-name-attribute: sub
+
