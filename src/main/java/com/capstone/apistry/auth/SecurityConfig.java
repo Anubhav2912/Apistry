@@ -54,14 +54,6 @@ public class SecurityConfig {
                 .deleteCookies("JSESSIONID")
                 .permitAll()
             )
-            .exceptionHandling(ex -> ex
-                .authenticationEntryPoint((request, response, authException) -> {
-                    response.sendRedirect("/dashboard");
-                })
-                .accessDeniedHandler((request, response, accessDeniedException) -> {
-                    response.sendRedirect("/dashboard");
-                })
-            )
             .userDetailsService(userDetailsService)
             .csrf(csrf -> csrf.disable());
 
@@ -116,3 +108,4 @@ public class SecurityConfig {
         return authConfig.getAuthenticationManager();
     }
 }
+
