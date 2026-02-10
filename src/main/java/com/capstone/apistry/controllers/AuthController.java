@@ -98,24 +98,6 @@ public class AuthController {
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
-        // Get data for the dashboard
-        var workspaces = workspaceService.getAllWorkspaces();
-        var collections = collectionService.getAllCollections();
-
-        // Scope requests (history & saved) to the current authenticated user
-        User currentUser = getCurrentUser();
-        var requests = currentUser != null
-                ? apiRequestService.getRecentApiRequestsForUser(currentUser)
-                : java.util.Collections.emptyList();
-        var savedRequests = currentUser != null
-                ? apiRequestService.getSavedApiRequestsForUser(currentUser)
-                : java.util.Collections.emptyList();
-        
-        model.addAttribute("workspaces", workspaces);
-        model.addAttribute("collections", collections);
-        model.addAttribute("requests", requests);
-        model.addAttribute("savedRequests", savedRequests);
-        
         return "dashboard";
     }
 
@@ -129,3 +111,4 @@ public class AuthController {
         return userService.findByUsername(username).orElse(null);
     }
 }
+
