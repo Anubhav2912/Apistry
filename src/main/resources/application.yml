@@ -8,10 +8,6 @@ spring:
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-
-  
-  # JPA Configuration
-  jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
@@ -61,3 +57,4 @@ apistry:
     version: 1.0.0
 
     description: A powerful API testing platform built with Spring Boot
+
