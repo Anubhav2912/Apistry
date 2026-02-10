@@ -1,13 +1,14 @@
 spring:
   application:
     name: Apistry
-  
-  # Database Configuration
+    
   datasource:
-    url: jdbc:mysql://localhost:3306/apistry?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: root
-    password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DATABASE_URL}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
   
   # JPA Configuration
   jpa:
@@ -58,4 +59,5 @@ apistry:
   app:
     title: Apistry - API Testing Platform
     version: 1.0.0
+
     description: A powerful API testing platform built with Spring Boot
