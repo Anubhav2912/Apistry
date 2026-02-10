@@ -25,22 +25,32 @@ public class FrontendController {
 
     @GetMapping("/request/new")
     public String newRequest(Model model) {
+    
         ApiRequest request = ApiRequest.builder()
                 .method("GET")
                 .url("")
                 .headers("{}")
                 .body("")
                 .build();
+    
         model.addAttribute("request", request);
-
-        // Populate recent request history and saved requests for the current user
+    
         User currentUser = getCurrentUser();
-        if (currentUser != null) {
-            var history = apiRequestService.getRecentApiRequestsForUser(currentUser);
-            var saved = apiRequestService.getSavedApiRequestsForUser(currentUser);
-            model.addAttribute("historyRequests", history);
-            model.addAttribute("savedRequests", saved);
+    
+        if (currentUser != null && currentUser.getId() != null) {
+            model.addAttribute(
+                "historyRequests",
+                apiRequestService.getRecentApiRequestsForUser(currentUser)
+            );
+            model.addAttribute(
+                "savedRequests",
+                apiRequestService.getSavedApiRequestsForUser(currentUser)
+            );
+        } else {
+            model.addAttribute("historyRequests", java.util.Collections.emptyList());
+            model.addAttribute("savedRequests", java.util.Collections.emptyList());
         }
+    
         return "request";
     }
 
@@ -120,3 +130,4 @@ public class FrontendController {
         return "environments";
     }
 }
+
