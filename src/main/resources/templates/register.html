@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Apistry</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <script th:src="@{/js/main.js}" defer></script>
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--hero-gradient);
+            padding: 20px;
+            transition: background 0.3s ease;
+        }
+        
+        .auth-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .auth-logo {
+            margin-bottom: 30px;
+        }
+        
+        .auth-logo i {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .auth-logo h1 {
+            color: var(--text-primary);
+            margin: 0;
+            font-size: 2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .auth-form {
+            text-align: left;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--input-border);
+            border-radius: 8px;
+            font-size: 16px;
+            background: var(--input-bg);
+            color: var(--text-primary);
+            transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--btn-primary);
+        }
+        
+        .auth-submit {
+            width: 100%;
+            padding: 14px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .auth-submit:hover {
+            background: #5a6fd8;
+        }
+        
+        .auth-links {
+            text-align: center;
+        }
+        
+        .auth-links a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .auth-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .back-home {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-home:hover {
+            text-decoration: underline;
+        }
+        
+        .password-requirements {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .oauth-divider {
+            margin: 20px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .oauth-divider-line {
+            position: relative;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .oauth-divider-text {
+            background: var(--card-bg);
+            padding: 0 15px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .oauth-divider hr {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            border: none;
+            border-top: 1px solid var(--input-border);
+            z-index: 0;
+        }
+        
+        .google-signin-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 12px 16px;
+            background: white;
+            color: #333;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        
+        .google-signin-btn:hover {
+            background: #f8f9fa;
+            border-color: #bbb;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transform: translateY(-1px);
+        }
+        
+        [data-theme="dark"] .google-signin-btn {
+            background: #2d2d2d;
+            color: #ffffff;
+            border-color: #555;
+        }
+        
+        [data-theme="dark"] .google-signin-btn:hover {
+            background: #3d3d3d;
+            border-color: #666;
+        }
+        
+        .google-icon {
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-home">
+        <i class="fas fa-arrow-left"></i>
+        Back to Home
+    </a>
+    
+    <div class="auth-container">
+        <div class="auth-card">
+            <div style="position: absolute; top: 20px; right: 20px;">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" style="background: none; border: none; color: #667eea; font-size: 1.2rem; cursor: pointer; padding: 0.5rem; border-radius: 4px; transition: background-color 0.3s ease;">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <div class="auth-logo">
+                <i class="fas fa-code"></i>
+                <h1>Apistry</h1>
+            </div>
+            
+            <!-- Flash Messages -->
+            <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+            
+            <form class="auth-form" th:action="@{/register}" method="post">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required autocomplete="username" minlength="3">
+                    <div class="password-requirements">Username must be at least 3 characters long</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required autocomplete="email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required autocomplete="new-password" minlength="6">
+                    <div class="password-requirements">Password must be at least 6 characters long</div>
+                </div>
+                
+                <button type="submit" class="auth-submit">
+                    <i class="fas fa-user-plus"></i>
+                    Create Account
+                </button>
+            </form>
+            
+            <div class="oauth-divider">
+                <div class="oauth-divider-line">
+                    <span class="oauth-divider-text">OR</span>
+                    <hr>
+                </div>
+                
+                <a href="/oauth2/authorization/google" class="google-signin-btn">
+                    <svg class="google-icon" width="18" height="18" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Sign up with Google
+                </a>
+            </div>
+            
+            <div class="auth-links">
+                <p>Already have an account? <a href="/login">Sign in</a></p>
+                <p>Need help? <a href="/contact">Contact Support</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

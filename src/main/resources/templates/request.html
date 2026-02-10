@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request - Apistry</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/request.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Hidden metadata -->
+    <input type="hidden" id="requestId" th:value="${request.id}">
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <i class="fas fa-code"></i>
+                <span>Apistry</span>
+            </div>
+            <nav class="breadcrumb">
+                <a th:href="@{/}">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <span th:text="${request.url}">Request</span>
+            </nav>
+        </div>
+        <div class="header-right">
+            <button class="btn btn-secondary" onclick="saveRequest()">
+                <i class="fas fa-save"></i>
+                Save
+            </button>
+            <button class="btn btn-primary" onclick="sendRequest()">
+                <i class="fas fa-paper-plane"></i>
+                Send
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-header">
+                    <h3>Request Details</h3>
+                </div>
+                <div class="request-info">
+                    <div class="info-item">
+                        <label>Method:</label>
+                        <span class="method-badge" th:text="${request.method}">GET</span>
+                    </div>
+                    <div class="info-item">
+                        <label>URL:</label>
+                        <span class="url-text" th:text="${request.url}">/api/endpoint</span>
+                    </div>
+                    <!-- Name removed: ApiRequest has no 'name' property -->
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-header">
+                    <h3>History</h3>
+                    <button class="btn-icon" title="Clear History">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <div class="history-list">
+                    <div th:if="${historyRequests == null or #lists.isEmpty(historyRequests)}" class="history-empty">
+                        <p>No history yet. Send or save a request to see it here.</p>
+                    </div>
+                    <a class="history-item"
+                       th:each="h : ${historyRequests}"
+                       th:href="@{/request/{id}(id=${h.id})}">
+                        <span class="method-badge" th:text="${h.method}">GET</span>
+                        <span class="history-url" th:text="${h.url}">/api/endpoint</span>
+                        <span class="history-time">Recent</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-header">
+                    <h3>Saved</h3>
+                    <button class="btn-icon" title="Clear Saved">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <div class="history-list">
+                    <div th:if="${savedRequests == null or #lists.isEmpty(savedRequests)}" class="history-empty">
+                        <p>No saved requests yet. Click Save on a request to pin it here.</p>
+                    </div>
+                    <a class="history-item"
+                       th:each="s : ${savedRequests}"
+                       th:href="@{/request/{id}(id=${s.id})}">
+                        <span class="method-badge" th:text="${s.method}">GET</span>
+                        <span class="history-url" th:text="${s.url}">/api/endpoint</span>
+                        <span class="history-time">Saved</span>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="request-container">
+                <!-- Request URL Bar -->
+                <div class="url-bar">
+                    <select class="method-select" id="methodSelect">
+                        <option value="GET" th:selected="${request.method == 'GET'}">GET</option>
+                        <option value="POST" th:selected="${request.method == 'POST'}">POST</option>
+                        <option value="PUT" th:selected="${request.method == 'PUT'}">PUT</option>
+                        <option value="DELETE" th:selected="${request.method == 'DELETE'}">DELETE</option>
+                        <option value="PATCH" th:selected="${request.method == 'PATCH'}">PATCH</option>
+                    </select>
+                    <input type="url" class="url-input" id="urlInput" th:value="${request.url}" placeholder="Enter request URL">
+                    <button class="btn btn-primary" onclick="sendRequest()">
+                        <i class="fas fa-paper-plane"></i>
+                        Send
+                    </button>
+                </div>
+
+                <!-- Request Tabs -->
+                <div class="request-tabs">
+                    <div class="tab-nav">
+                        <button class="tab-btn active" data-tab="params">Params</button>
+                        <button class="tab-btn" data-tab="headers">Headers</button>
+                        <button class="tab-btn" data-tab="body">Body</button>
+                        <button class="tab-btn" data-tab="tests">Tests</button>
+                        <button class="tab-btn" data-tab="settings">Settings</button>
+                    </div>
+
+                    <!-- Params Tab -->
+                    <div class="tab-content active" id="params">
+                        <div class="tab-header">
+                            <h3>Query Parameters</h3>
+                            <button class="btn btn-sm btn-secondary" onclick="addParam()">
+                                <i class="fas fa-plus"></i>
+                                Add Parameter
+                            </button>
+                        </div>
+                        <div class="params-list" id="paramsList">
+                            <div class="param-item">
+                                <input type="text" placeholder="Key" class="param-key">
+                                <input type="text" placeholder="Value" class="param-value">
+                                <button class="btn-icon param-remove">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Headers Tab -->
+                    <div class="tab-content" id="headers">
+                        <div class="tab-header">
+                            <h3>Request Headers</h3>
+                            <button class="btn btn-sm btn-secondary" onclick="addHeader()">
+                                <i class="fas fa-plus"></i>
+                                Add Header
+                            </button>
+                        </div>
+                        <div class="headers-list" id="headersList">
+                            <div class="header-item">
+                                <input type="text" placeholder="Key" class="header-key">
+                                <input type="text" placeholder="Value" class="header-value">
+                                <button class="btn-icon header-remove">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Body Tab -->
+                    <div class="tab-content" id="body">
+                        <div class="tab-header">
+                            <h3>Request Body</h3>
+                            <div class="body-type-selector">
+                                <button class="body-type-btn active" data-type="none">none</button>
+                                <button class="body-type-btn" data-type="formdata">form-data</button>
+                                <button class="body-type-btn" data-type="xwwwform">x-www-form-urlencoded</button>
+                                <button class="body-type-btn" data-type="raw">raw</button>
+                                <button class="body-type-btn" data-type="binary">binary</button>
+                                <button class="body-type-btn" data-type="graphql">GraphQL</button>
+                            </div>
+                        </div>
+                        <div class="body-content">
+                            <div class="body-editor">
+                                <textarea id="bodyEditor" placeholder="Enter request body (JSON, XML, etc.)" th:text="${request.body}"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tests Tab -->
+                    <div class="tab-content" id="tests">
+                        <div class="tab-header">
+                            <h3>Tests</h3>
+                            <button class="btn btn-sm btn-secondary" onclick="addTest()">
+                                <i class="fas fa-plus"></i>
+                                Add Test
+                            </button>
+                        </div>
+                        <div class="tests-content">
+                            <textarea id="testsEditor" placeholder="// Add your tests here&#10;pm.test('Status code is 200', function () {&#10;    pm.response.to.have.status(200);&#10;});"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Settings Tab -->
+                    <div class="tab-content" id="settings">
+                        <div class="settings-content">
+                            <div class="setting-item">
+                                <label>
+                                    <input type="checkbox" checked>
+                                    Follow redirects
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label>
+                                    <input type="checkbox" checked>
+                                    SSL certificate verification
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label>Request timeout (ms):</label>
+                                <input type="number" value="30000" min="1000" max="300000">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Response Section -->
+                <div class="response-section" id="responseSection" style="display: none;">
+                    <div class="response-header">
+                        <h3>Response</h3>
+                        <div class="response-info">
+                            <span class="status-badge" id="statusBadge">200 OK</span>
+                            <span class="response-time" id="responseTime">245ms</span>
+                            <span class="response-size" id="responseSize">1.2KB</span>
+                        </div>
+                    </div>
+                    <div class="response-tabs">
+                        <div class="tab-nav">
+                            <button class="tab-btn active" data-tab="response-body">Body</button>
+                            <button class="tab-btn" data-tab="response-headers">Headers</button>
+                            <button class="tab-btn" data-tab="response-cookies">Cookies</button>
+                            <button class="tab-btn" data-tab="response-tests">Test Results</button>
+                        </div>
+                        <div class="tab-content active" id="response-body">
+                            <div class="response-content">
+                                <pre id="responseBody">Response will appear here...</pre>
+                            </div>
+                        </div>
+                        <div class="tab-content" id="response-headers">
+                            <div class="response-content">
+                                <div class="headers-display" id="responseHeaders">
+                                    <!-- Response headers will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content" id="response-cookies">
+                            <div class="response-content">
+                                <div class="cookies-display" id="responseCookies">
+                                    <!-- Response cookies will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content" id="response-tests">
+                            <div class="response-content">
+                                <div class="tests-results" id="testsResults">
+                                    <!-- Test results will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/request.js}"></script>
+</body>
+</html>

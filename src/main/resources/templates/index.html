@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apistry - API Testing Made Simple</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <script th:src="@{/js/main.js}" defer></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-code"></i>
+                <span>Apistry</span>
+            </div>
+            <nav class="nav-menu">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="/contact" class="nav-link">Contact</a>
+                <a href="/login" class="nav-link">Login</a>
+                <a href="/register" class="nav-link btn-primary">Sign Up</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Build, Test, and Document APIs with Ease</h1>
+                <p class="hero-subtitle">Apistry is a powerful API testing platform that helps developers create, test, and manage their APIs efficiently.</p>
+                <div class="hero-buttons">
+                    <a href="/register" class="btn btn-primary btn-large">Get Started Free</a>
+                    <a href="/login" class="btn btn-secondary btn-large">Sign In</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <h2 class="section-title">Why Choose Apistry?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Fast & Efficient</h3>
+                        <p>Lightning-fast API testing with intuitive interface</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Secure</h3>
+                        <p>Enterprise-grade security for your API testing needs</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Team Collaboration</h3>
+                        <p>Work together with your team on API projects</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <h3>Environment Management</h3>
+                        <p>Manage multiple environments seamlessly</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions Section -->
+        <section class="quick-actions">
+            <div class="container">
+                <h2 class="section-title">Quick Actions</h2>
+                <div class="actions-grid">
+                    <div class="action-card" onclick="window.location.href='/login'">
+                        <div class="action-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <h3>Create New Request</h3>
+                        <p>Start building your API request</p>
+                    </div>
+                    <div class="action-card" onclick="window.location.href='/login'">
+                        <div class="action-icon">
+                            <i class="fas fa-folder-plus"></i>
+                        </div>
+                        <h3>Create Collection</h3>
+                        <p>Organize your API requests</p>
+                    </div>
+                    <div class="action-card" onclick="window.location.href='/login'">
+                        <div class="action-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <h3>Manage Environments</h3>
+                        <p>Set up your testing environments</p>
+                    </div>
+                    <div class="action-card" onclick="window.location.href='/login'">
+                        <div class="action-icon">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <h3>View History</h3>
+                        <p>Check your request history</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta">
+            <div class="container">
+                <h2>Ready to Get Started?</h2>
+                <p>Join thousands of developers who trust Apistry for their API testing needs.</p>
+                <a href="/register" class="btn btn-primary btn-large">Create Free Account</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <p>&copy; 2025 Apistry. All rights reserved.</p>
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <a href="/contact">
+                        <i class="fas fa-headset"></i> Contact Support
+                    </a>
+                    <a href="https://wa.me/919560530197" target="_blank">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="mailto:ak23.ideal@gmail.com">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html>

@@ -1,0 +1,483 @@
+/* Request Page Specific Styles */
+
+/* Breadcrumb Navigation */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.breadcrumb a {
+    color: #ff6c37;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+    color: #e55a2b;
+}
+
+.breadcrumb i {
+    margin: 0 8px;
+    font-size: 12px;
+}
+
+/* Request Container */
+.request-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* URL Bar */
+.url-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    border: 1px solid #e1e5e9;
+}
+
+.method-select {
+    padding: 12px 16px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    color: #495057;
+    min-width: 100px;
+    cursor: pointer;
+}
+
+.method-select:focus {
+    outline: none;
+    border-color: #ff6c37;
+    box-shadow: 0 0 0 3px rgba(255, 108, 55, 0.1);
+}
+
+.url-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.url-input:focus {
+    outline: none;
+    border-color: #ff6c37;
+    box-shadow: 0 0 0 3px rgba(255, 108, 55, 0.1);
+}
+
+/* Request Tabs */
+.request-tabs {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    border: 1px solid #e1e5e9;
+}
+
+.tab-nav {
+    display: flex;
+    border-bottom: 1px solid #e1e5e9;
+    background: #f8f9fa;
+    border-radius: 8px 8px 0 0;
+}
+
+.tab-btn {
+    padding: 12px 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #6c757d;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+    background: #e9ecef;
+    color: #495057;
+}
+
+.tab-btn.active {
+    color: #ff6c37;
+    border-bottom-color: #ff6c37;
+    background: #fff;
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.tab-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+/* Params and Headers */
+.params-list,
+.headers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.param-item,
+.header-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 12px;
+    align-items: center;
+}
+
+.param-key,
+.param-value,
+.header-key,
+.header-value {
+    padding: 10px 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.param-key:focus,
+.param-value:focus,
+.header-key:focus,
+.header-value:focus {
+    outline: none;
+    border-color: #ff6c37;
+    box-shadow: 0 0 0 3px rgba(255, 108, 55, 0.1);
+}
+
+.param-remove,
+.header-remove {
+    padding: 8px;
+    color: #dc3545;
+}
+
+.param-remove:hover,
+.header-remove:hover {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Body Tab */
+.body-type-selector {
+    display: flex;
+    gap: 4px;
+}
+
+.body-type-btn {
+    padding: 6px 12px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #6c757d;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.body-type-btn:hover {
+    background: #e9ecef;
+    color: #495057;
+}
+
+.body-type-btn.active {
+    background: #ff6c37;
+    color: white;
+    border-color: #ff6c37;
+}
+
+.body-editor {
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.body-editor textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 16px;
+    border: none;
+    resize: vertical;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.body-editor textarea:focus {
+    outline: none;
+}
+
+/* Tests Tab */
+.tests-content textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 16px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+}
+
+.tests-content textarea:focus {
+    outline: none;
+    border-color: #ff6c37;
+    box-shadow: 0 0 0 3px rgba(255, 108, 55, 0.1);
+}
+
+/* Settings Tab */
+.settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.setting-item label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #495057;
+    cursor: pointer;
+}
+
+.setting-item input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+}
+
+.setting-item input[type="number"] {
+    width: 120px;
+    padding: 8px 12px;
+}
+
+/* Response Section */
+.response-section {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border: 1px solid #e1e5e9;
+    margin-top: 20px;
+}
+
+.response-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid #e1e5e9;
+    background: #f8f9fa;
+    border-radius: 8px 8px 0 0;
+}
+
+.response-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.response-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #28a745;
+    color: white;
+}
+
+.response-time,
+.response-size {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+/* Response Tabs */
+.response-tabs .tab-nav {
+    background: #fff;
+    border-top: 1px solid #e1e5e9;
+}
+
+.response-tabs .tab-content {
+    padding: 20px;
+}
+
+.response-content {
+    background: #f8f9fa;
+    border-radius: 6px;
+    padding: 16px;
+    min-height: 200px;
+}
+
+.response-content pre {
+    margin: 0;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #495057;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Request Info Sidebar */
+.request-info {
+    padding: 0 20px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-item label {
+    font-size: 12px;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.url-text {
+    font-size: 12px;
+    color: #495057;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* History List */
+.history-list {
+    padding: 0 20px;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f3f4;
+    font-size: 12px;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.history-url {
+    flex: 1;
+    color: #495057;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.history-time {
+    color: #6c757d;
+    font-size: 11px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .url-bar {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .method-select {
+        width: 100%;
+    }
+    
+    .param-item,
+    .header-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .tab-nav {
+        flex-wrap: wrap;
+    }
+    
+    .tab-btn {
+        flex: 1;
+        min-width: 80px;
+        text-align: center;
+    }
+    
+    .response-header {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+    
+    .response-info {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .request-container {
+        padding: 0 10px;
+    }
+    
+    .url-bar {
+        padding: 15px;
+    }
+    
+    .tab-content {
+        padding: 15px;
+    }
+    
+    .body-editor textarea,
+    .tests-content textarea {
+        min-height: 150px;
+    }
+}
